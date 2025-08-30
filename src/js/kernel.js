@@ -453,7 +453,7 @@ var kernel = execMain(function() {
 		 */
 		var dialog = $('<div class="dialog">');
 		var title = $('<div class="title">');
-		var value = $('<div class="value">');
+		var value = $('<div>');
 		var buttons = $('<div class="button">');
 		var OK = $('<input type="button" class="buttonOK">').val(OK_LANG);
 		var CAN = $('<input type="button" class="buttonOK">').val(CANCEL_LANG);
@@ -462,8 +462,8 @@ var kernel = execMain(function() {
 				$('<tr style="height:0%;">').append(
 					$('<td>').append(title)
 				),
-				$('<tr style="height:100%;">').append(
-					$('<td style="position:relative;">').append(value)
+				$('<tr>').append(
+					$('<td>').append(value)
 				),
 				$('<tr style="height:0%;">').append(
 					$('<td>').append(buttons)

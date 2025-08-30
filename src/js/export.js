@@ -8,21 +8,18 @@ var exportFunc = execMain(function() {
 	var exportTable = $('<table class="expOauth expUpDown">');
 
 	var wcaDataTd = $('<td></td>');
-	var wcaDataTr = $('<tr>').append('<td class="img"/>', wcaDataTd);
-	var inServWCA = $('<a class="click"/>').html(EXPORT_FROMSERV + ' (csTimer)').click(downloadData);
-	var outServWCA = $('<a class="click"/>').html(EXPORT_TOSERV + ' (csTimer)').click(uploadDataClk);
+	var wcaDataTr = $('<tr>');
+	var inServWCA = $('<a class="click"/>');
+	var outServWCA = $('<a class="click"/>');
 
 	var gglDataTd = $('<td></td>');
-	var gglDataTr = $('<tr>').append('<td class="img"/>', gglDataTd);
+	var gglDataTr = $('<tr>');
 	var inServGGL = $('<a class="click"/>');
 	var outServGGL = $('<a class="click"/>');
 
 	var inFile = $('<input type="file" id="file" accept="text/*"/>');
 	var inOtherFile = $('<input type="file" id="file" accept="text/*"/>');
 	var outFile = $('<a class="click"/>').html(EXPORT_TOFILE);
-
-	var inServ = $('<a class="click"/>').html(EXPORT_FROMSERV + ' (csTimer)').click(downloadData);
-	var outServ = $('<a class="click"/>').html(EXPORT_TOSERV + ' (csTimer)').click(uploadDataClk);
 
 	var expString;
 
@@ -32,9 +29,6 @@ var exportFunc = execMain(function() {
 				inFile.click();
 			})),
 			$('<td>').append(outFile)),
-		$('<tr>').append(
-			$('<td>').append(inServ),
-			$('<td>').append(outServ)),
 		$('<tr>').append(
 			$('<td colspan=2>').append($('<a class="click"/>').html(EXPORT_FROMOTHER).click(function() {
 				inOtherFile.click();
@@ -172,7 +166,7 @@ var exportFunc = execMain(function() {
 				}
 				ids.push(key);
 			}
-			return $.ppost('https://cstimer.net/userdata2.php', {
+			return $.ppost('https://cstimer.2mf8.cn/userdata2.php', {
 				'id': id,
 				'exists': ids.join(',')
 			}, 'json').then(function(val) {
@@ -189,7 +183,7 @@ var exportFunc = execMain(function() {
 					ids.push(key);
 					datas.push(slices[key]);
 				}
-				return $.ppost('https://cstimer.net/userdata2.php', {
+				return $.ppost('https://cstimer.2mf8.cn/userdata2.php', {
 					'id': id,
 					'ids': ids.join(','),
 					'datas': datas.join(',')
@@ -253,7 +247,7 @@ var exportFunc = execMain(function() {
 				}
 			}
 			target.html('Import Data...');
-			return $.ppost('https://cstimer.net/userdata2.php', {
+			return $.ppost('https://cstimer.2mf8.cn/userdata2.php', {
 				'id': id,
 				'offset': idx - 1
 			}, 'json').then(dataCallback);
@@ -300,7 +294,7 @@ var exportFunc = execMain(function() {
 					if (reqKeys.length == 0) {
 						return {'retcode':0,'datas':{}};
 					}
-					return $.ppost('https://cstimer.net/userdata2.php', {
+					return $.ppost('https://cstimer.2mf8.cn/userdata2.php', {
 						'id': id,
 						'ids': reqKeys.join(',')
 					}, 'json');
@@ -327,7 +321,7 @@ var exportFunc = execMain(function() {
 
 		var jobs = Promise.resolve({'data':1});
 		if (kernel.getProp('expp')) {
-			jobs = $.ppost('https://cstimer.net/userdata2.php', {
+			jobs = $.ppost('https://cstimer.2mf8.cn/userdata2.php', {
 				'id': id,
 				'cnt': 1
 			}, 'json');
@@ -513,47 +507,9 @@ var exportFunc = execMain(function() {
 	}
 
 	function updateUserInfoFromWCA() {
-		var wcaData = JSON.parse(localStorage['wcaData'] || '{}');
-		wcaDataTr.unbind('click');
-		inServWCA.unbind('click').removeClass('click');
-		outServWCA.unbind('click').removeClass('click');
-		if (!wcaData['access_token']) {
-			wcaDataTd.html(EXPORT_LOGINWCA);
-			wcaDataTr.click(function() {
-				location.href = wcaLoginUrl;
-			}).addClass('click');
-		} else {
-			var me = wcaData['wca_me'];
-			wcaDataTd.html('WCAID: ' + me['wca_id'] + '<br>' + 'Name: ' + me['name']);
-			wcaDataTr.click(logoutFromWCA.bind(undefined, true)).addClass('click');
-			inServWCA.addClass('click').click(downloadData);
-			outServWCA.addClass('click').click(uploadDataClk);
-		}
 	}
 
 	function updateUserInfoFromGGL() {
-		var gglData = JSON.parse(localStorage['gglData'] || '{}');
-		gglDataTr.unbind('click');
-		inServGGL.unbind('click').removeClass('click').html(EXPORT_FROMSERV + ' (Google)');
-		outServGGL.unbind('click').removeClass('click').html(EXPORT_TOSERV + ' (Google)');
-		if (!gglData['access_token']) {
-			gglDataTd.html(EXPORT_LOGINGGL);
-			gglDataTr.click(function() {
-				location.href = gglLoginUrl;
-			}).addClass('click');
-		} else {
-			var me = gglData['ggl_me'];
-			gglDataTd.html('Name: ' + me['displayName'] + '<br>' + 'Email: ' + me['emailAddress']);
-			gglDataTr.click(logoutFromGGL.bind(undefined, true)).addClass('click');
-			inServGGL.addClass('click').click(downloadDataGGL);
-			outServGGL.addClass('click').click(function() {
-				uploadDataGGL().then(function() {
-					$.alert(EXPORT_UPLOADED);
-				}, function(errmsg) {
-					$.alert(errmsg);
-				});
-			});
-		}
 	}
 
 	function logoutFromWCA(cfm) {
@@ -695,18 +651,7 @@ var exportFunc = execMain(function() {
 		kernel.regProp('kernel', 'expp', 0, PROPERTY_IMPPREV, [false]);
 
 		kernel.addButton('export', BUTTON_EXPORT, showExportDiv, 2);
-		exportDiv.append('<br>',
-			$('<div class="expOauth">').append(
-				$('<table id="wcaLogin">').append(wcaDataTr),
-				$('<table class="expUpDown">').append($('<tr>').append(
-					$('<td>').append(inServWCA),
-					$('<td>').append(outServWCA)))),
-			$('<div class="expOauth">').append(
-				$('<table id="gglLogin">').append(gglDataTr),
-				$('<table class="expUpDown">').append($('<tr>').append(
-					$('<td>').append(inServGGL),
-					$('<td>').append(outServGGL)))),
-			exportTable);
+		exportDiv.append(exportTable);
 		if (window.FileReader && window.Blob) {
 			var reader = new FileReader();
 			reader.onload = importData;

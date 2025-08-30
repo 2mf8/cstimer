@@ -1,6 +1,7 @@
-<h1>csTimer version <?php echo $version;?> - 魔方竞速训练专用计时器</h1>
+<h1>csTimer version <?php echo $version;?> - 魔方竞速训练专用计时器<br/>孙氏魔方中文标记版</h1>
 <?php include('lang.php') ?>
 <h2>简介</h2>
+<p>csTimer孙氏魔方中文标记版是基于csTimer精简、标记汉化而来，源网站为 <a class="click" href="https://cstimer.net/">csTimer</a></p>
 <p>csTimer是专门为魔方爱好者精心设计的一款专业计时软件，它提供了：</p>
 <ul>
 <li>各类打乱公式，包括<strong>所有WCA官方项目打乱</strong>、异形魔方打乱、特定阶段的<strong>训练打乱</strong>（如<strong>F2L OLL PLL ZBLL</strong>，并可筛选情况）等</li>

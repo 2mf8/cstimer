@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no">
   <meta name="viewport" content="width=500, user-scalable=no">
-  <link rel="manifest" href="cstimer.webmanifest">
+  <link rel="manifest" href=".\cstimer.webmanifest">
 <?php include('lang/langDet.php');?>
   <link rel='stylesheet' type='text/css' href='css/style.css'>
   <script type="text/javascript" src="js/lib/jquery-1.8.0.js"></script>
@@ -53,6 +53,7 @@
   <script type="text/javascript" src="js/scramble/scramble_fto.js"></script>
   <script type="text/javascript" src="js/scramble/redi.js"></script>
   <script type="text/javascript" src="js/scramble/slide.js"></script>
+  <script type="text/javascript" src="js/scramble/to_zh.js"></script>
   <script type="text/javascript" src="js/scramble/utilscramble.js"></script>
   <script type="text/javascript" src="js/lib/storage.js"></script>
   <script type="text/javascript" src="js/stats/timestat.js"></script>

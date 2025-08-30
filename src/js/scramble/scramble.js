@@ -2,6 +2,8 @@
 
 var scrMgr = (function(rn, rndEl) {
 
+	var ZHS = ""
+
 	function mega(turns, suffixes, length) {
 		turns = turns || [[""]];
 		suffixes = suffixes || [""];
@@ -254,7 +256,12 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 
 	function procLastClick() {
 		isDisplayLast = true;
-		sdiv.html(scrStd(lasttype, lastscramble, lastlen, true));
+		var idx = menu.getSelIdx();
+		if (idx[0] == 12 || idx[0] == 15 || (idx[0] == 0 && (idx[1] == 10))) {
+			sdiv.html(ToZh.convertPyramZhSun(scrStd(lasttype, lastscramble, lastlen, true)));
+		} else {
+			sdiv.html(ToZh.convertZhSun(scrStd(lasttype, lastscramble, lastlen, true)));
+		}
 		lastClick.removeClass('click').unbind('click');
 		if (lastscramble != undefined) {
 			kernel.pushSignal('scrambleX', scrStd(lasttype, lastscramble, lastlen));
@@ -264,7 +271,12 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 	function procNextClick() {
 		if (isDisplayLast) {
 			isDisplayLast = false;
-			sdiv.html(scrStd(type, scramble, len, true));
+			var idx = menu.getSelIdx();
+			if (idx[0] == 12 || idx[0] == 15 || (idx[0] == 0 && (idx[1] == 10))) {
+				sdiv.html(ToZh.convertPyramZhSun(scrStd(type, scramble, len, true)));
+			} else {
+				sdiv.html(ToZh.convertZhSun(scrStd(type, scramble, len, true)));
+			}
 			lastClick.addClass('click').unbind('click').click(procLastClick);
 			kernel.pushSignal('scrambleX', scrStd(type, scramble, len));
 		} else {
@@ -280,6 +292,7 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 		}
 		isDisplayLast = false;
 		scramble = _scramble;
+		console.log('pushScramble', scramble);
 		sdiv.html(scrStd(type, scramble, len, true));
 		lastClick.addClass('click').unbind('click').click(procLastClick);
 		kernel.pushSignal('scrambleX', scrStd(type, scramble, len));
@@ -422,7 +435,12 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 
 	function scrambleOK(scrStr) {
 		scramble = (scrStr || scramble).replace(/(\s*)$/, "");
-		sdiv.html(scrStd(type, scramble, len, true));
+		var idx = menu.getSelIdx();
+		if (idx[0] == 12 || idx[0] == 15 || (idx[0] == 0 && (idx[1] == 10))) {
+			sdiv.html(ToZh.convertPyramZhSun(scrStd(type, scramble, len, true)));
+		} else {
+			sdiv.html(ToZh.convertZhSun(scrStd(type, scramble, len, true)));
+		}
 		kernel.pushSignal('scramble', scrStd(type, scramble, len));
 	}
 
@@ -607,7 +625,6 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 			if (scrFlt[0] == type) {
 				curData = scrFlt[1] || data;
 			}
-			// console.log(scrFlt, curData);
 			scrFltDiv.append('<br>', scrFltSelAll, scrFltSelNon, '<br><br>');
 			var dataGroup = {};
 			for (var i = 0; i < data.length; i++) {
@@ -928,7 +945,6 @@ var scramble = ISCSTIMER && execMain(function(rn, rndEl) {
 		scrLen.change(genScramble);
 		scrOpt.click(showScrOpt);
 		scrOptDiv.append($('<div>').append(SCRAMBLE_LENGTH + ': ', scrLen), scrHelp, scrFltDiv);
-
 		title.append($('<nobr>').append(selects[0], ' ', selects[1], ' ', scrOpt), " <wbr>");
 		title.append($('<nobr>').append(lastClick, '/', nextClick, SCRAMBLE_SCRAMBLE));
 		div.append(title, ssdiv.append(sdiv).click(procScrambleClick));
