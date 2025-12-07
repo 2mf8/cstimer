@@ -212,10 +212,10 @@ var ToZh = function(){
                 var s1 = ss[i].slice(rs[0].length)
                 var s2 = s1.replaceAll("w", "")
                 if (s2.endsWith("A")) {
-                    var ns2 = numToWords(_ss) + convert(s2.slice(0, -1)) + convert(s2.slice(0, -1))
+                    var ns2 = _ss + convert(s2.slice(0, -1)) + "又"
                     na.push(ns2)
                 } else {
-                    var ns2 = numToWords(_ss) + convert(s2)
+                    var ns2 = _ss + convert(s2)
                     na.push(ns2)
                 }
                 continue
@@ -223,16 +223,16 @@ var ToZh = function(){
             if (ss[i].indexOf("w") > -1) {
                 var s2 = ss[i].replaceAll("w", "")
                 if (s2.endsWith("A")) {
-                    var ns2 = "双" + convert(s2.slice(0, -1)) + convert(s2.slice(0, -1))
+                    var ns2 = "2" + convert(s2.slice(0, -1)) + "又"
                     na.push(ns2)
                 } else {
-                    var ns2 = "双" + convert(s2)
+                    var ns2 = "2" + convert(s2)
                     na.push(ns2)
                 }
                 continue
             }
             if (ss[i].endsWith("A")) {
-                var ns2 = convert(ss[i].slice(0, -1)) + convert(ss[i].slice(0, -1))
+                var ns2 = convert(ss[i].slice(0, -1)) + "又"
                 na.push(ns2)
             } else {
                 var ns2 = convert(ss[i])
@@ -241,7 +241,7 @@ var ToZh = function(){
         }
         var regm = new RegExp(`°[上下顶底拨旋]`, "g")
         var regm2 = new RegExp(`′[上下顶底拨旋]`, "g")
-        var ms = na.join(" ").replaceAll(regm, "°").replaceAll(regm2, "′")
+        var ms = na.join(" ").replaceAll(regm, "°").replaceAll(regm2, "′").replaceAll("--", "-又")
         return ms
     }
 
@@ -287,14 +287,14 @@ var ToZh = function(){
                 var s1 = ss[i].slice(rs[0].length)
                 console.log(s1, "dsdf")
                 var s2 = s1.replaceAll("w", "")
-                var ts = numToWords(rs[0]) + convert(s2)
+                var ts = rs[0] + convert(s2)
                 na.push(ts)
                 continue
             }
             if (ss[i].includes("w")) {
                 console.log(ss[i])
                 var s1 = ss[i].replaceAll("w", "")
-                var ts = "双" + convert(s1)
+                var ts = "2" + convert(s1)
                 na.push(ts)
                 continue
             }

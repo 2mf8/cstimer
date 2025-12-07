@@ -171,34 +171,33 @@ var CONFIRM_GIIRST = '重置蓝牙魔方为已还原？';
 var PROPERTY_GIIAED = '自动硬件错误检测';
 var scrdata = [
             ['WCA', [
-                ['3x3x3', "333", 0],
-                ['2x2x2', "222so", 0],
-                ['4x4x4', "444wca", 40],
-                ['5x5x5', "555wca", 60],
-                ['6x6x6', "666wca", 80],
-                ['7x7x7', "777wca", 100],
-                ['3x3 bld', "333ni", 0],
-                ['3x3 fm', "333fm", 0],
-                ['3x3 oh', "333oh", 0],
-                ['megaminx', "mgmp", 70],
-                ['pyraminx', "pyrso", 10],
-                ['skewb', "skbso", 0],
-                ['4x4 bld', "444bld", 40],
-                ['5x5 bld', "555bld", 60],
-                ['3x3 mbld', "r3ni", 5]
+                ['三阶速拧', "333", 0],
+                ['二阶速拧', "222so", 0],
+                ['四阶速拧', "444wca", -40],
+                ['五阶速拧', "555wca", -60],
+                ['六阶速拧', "666wca", -80],
+                ['七阶速拧', "777wca", -100],
+                ['三阶盲拧', "333ni", 0],
+                ['三阶最少步', "333fm", 0],
+                ['三阶单手', "333oh", 0],
+                ['五魔方', "mgmp", -70],
+                ['金字塔', "pyrso", -10],
+                ['斜转魔方', "skbso", 0],
+                ['四阶盲拧', "444bld", -40],
+                ['五阶盲拧', "555bld", -60],
             ]],
             ['3x3x3', [
-                ["random state (WCA)", "333", 0],
-                ['random move', "333o", 25],
-                ['edges only', "edges", 0],
-                ['corners only', "corners", 0],
-                ['3x3 ft', "333ft", 0],
+                ["随机状态 (WCA)", "333", 0],
+		        ['随机转动', "333o", 25],
+                ['棱块训练', "edges", 0],
+		        ['角块训练', "corners", 0],
+                ['三阶脚拧', "333ft", 0]
             ]],
             ['3x3x3 CFOP', [
                 ['PLL', "pll", 0],
                 ['OLL', "oll", 0],
-                ['last slot + last layer', "lsll2", 0],
-                ['last layer', "ll", 0],
+                ['F2L单组', "lsll2", 0],
+		        ['顶层训练', "ll", 0],
                 ['ZBLL', "zbll", 0],
                 ['COLL', "coll", 0],
                 ['CLL', "cll", 0],
@@ -211,8 +210,8 @@ var scrdata = [
                 ['VLS', "vls", 0],
                 ['cross solved', "f2l", 0],
                 ['EOLine', "eoline", 0],
-                ['easy cross', "easyc", 3],
-                ['easy xcross', "easyxc", 4]
+                ['简单十字', "easyc", 3],
+		        ['简单XCross', "easyxc", 4]
             ]],
             ['3x3x3 Roux', [
                 ['2nd Block', "sbrx", 0],
@@ -230,8 +229,8 @@ var scrdata = [
                 ['TTLL', "ttll", 0]
             ]],
             ['2x2x2', [
-                ["random state (WCA)", "222so", 0],
-                ['optimal', "222o", 0],
+                ["随机状态 (WCA)", "222so", 0],
+		        ['最少步', "222o", 0],
                 ['3-gen', "2223", 25],
                 ['EG', "222eg", 0],
                 ['CLL', "222eg0", 0],
@@ -241,14 +240,14 @@ var scrdata = [
                 ['TCLL-', "222tcn", 0],
                 ['TCLL', "222tc", 0],
                 ['LS', "222lsall", 0],
-                ['No Bar', "222nb", 0]
+                ['无连色', "222nb", 0]
             ]],
             ['4x4x4', [
                 ["WCA", "444wca", 40],
-                ['random move', "444m", 40],
+                ['随机转动', "444m", 40],
                 ['SiGN', "444", 40],
                 ['YJ', "444yj", 40],
-                ['4x4x4 edges', "4edge", 0],
+                ['对棱训练', "4edge", 0],
                 ['R,r,U,u', "RrUu", 40],
                 ['Last layer', "444ll", 0],
                 ['ELL', "444ell", 0],
@@ -266,43 +265,42 @@ var scrdata = [
             ['5x5x5', [
                 ["WCA", "555wca", 60],
                 ['SiGN', "555", 60],
-                ['5x5x5 edges', "5edge", 8]
+                ['对棱训练', "5edge", 8]
             ]],
             ['6x6x6', [
                 ["WCA", "666wca", 80],
                 /* ['SiGN', "666si", 80],
                 ['prefix', "666p", 80],
                 ['suffix', "666s", 80], */
-                ['6x6x6 edges', "6edge", 8]
+                ['对棱训练', "6edge", 8]
             ]],
             ['7x7x7', [
                 ["WCA", "777wca", 100],
                 /* ['SiGN', "777si", 100],
                 ['prefix', "777p", 100],
                 ['suffix', "777s", 100], */
-                ['7x7x7 edges', "7edge", 8]
+                ['对棱训练', "7edge", 8]
             ]],
-            ['Megaminx', [
+            ['五魔方', [
                 ["WCA", "mgmp", 70],
-                ['Carrot', "mgmc", 70],
-                ['old style', "mgmo", 70],
+                ['传统', "mgmo", 70],
                 ['2-generator R,U', "minx2g", 30],
                 ['last slot + last layer', "mlsll", 0],
                 ['PLL', "mgmpll", 0],
                 ['Last Layer', "mgmll", 0]
             ]],
-            ['Pyraminx', [
-                ["random state (WCA)", "pyrso", 10],
-                ['optimal', "pyro", 0],
-                ['random move', "pyrm", 25],
+            ['金字塔', [
+                ["随机状态 (WCA)", "pyrso", 10],
+                ['最少步', "pyro", 0],
+                ['随机转动', "pyrm", 25],
                 ['L4E', "pyrl4e", 0],
                 ['4 tips', "pyr4c", 0],
                 ['No bar', "pyrnb", 0]
             ]],
             ['Skewb', [
-                ["random state (WCA)", "skbso", 0],
-                ['optimal', "skbo", 0],
-                ['random move', "skb", 25],
+                ["随机状态 (WCA)", "skbso", 0],
+                ['最少步', "skbo", 0],
+                ['随机转动', "skb", 25],
                 ['No bar', "skbnb", 0]
             ]],
             ['LxMxN', [
@@ -319,11 +317,11 @@ var scrdata = [
                 ['11x11x11', "111111", 120],
                 ['NxNxN', "cubennn", 12]
             ]],
-            ['Master Pyraminx', [ //四阶金字塔
-                ['random state', "mpyrso", 0],
-                ['random move', "mpyr", 42]
+            ['四阶金字塔', [ //四阶金字塔
+                ['随机状态', "mpyrso", 0],
+		        ['随机转动', "mpyr", 42]
             ]],
-            ['3x3x3 subsets', [
+            ['3x3x3子集', [
                 ['2-generator R,U', "2gen", 0],
                 ['2-generator L,U', "2genl", 0],
                 ['Roux-generator M,U', "roux", 25],
@@ -334,7 +332,7 @@ var scrdata = [
                 ['half turns only', "half", 0],
                 ['last slot + last layer (old)', "lsll", 15]
             ]],
-            ['Bandaged Cube', [
+            ['捆绑魔方', [
                 ['Bicube', "bic", 30],
                 ['Square-1 /,(1,0)', "bsq", 25]
             ]]
